@@ -171,7 +171,7 @@ void PrintNode(const LinkList pLinkNode)
 	}
 	cout << endl;
 }
-//8.带表删除
+//8.整表删除
 Status ClearList(LinkList &L)
 {
 	LinkList p, q;
