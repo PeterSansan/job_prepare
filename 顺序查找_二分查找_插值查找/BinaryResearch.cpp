@@ -23,7 +23,8 @@ int binary_research(int arr[], int left, int right, int element)
 	while (left <= right)
 	{
 		
-		mid = left - (left - right) / 2; //防止越界
+		mid = left - (left - right) / 2; //防止越界,or mid = left+(right -left)/2;
+		//mid = left+(element - arr[left])*(right-left)/(arr[right]-arr[left]);	//插入查找
 		//int mid = (left + right) //这句会越界
 		if (arr[mid] > element)
 		{
