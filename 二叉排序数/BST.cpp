@@ -76,7 +76,7 @@ Status BSTInsert1(BiTree &T, int key)
 		s = new BiTNode;
 		s->data = key;
 		s->lchild = s->rchild = NULL;
-		if (!p)
+		if (!p)				//这种情况为创建根结点
 			T = s;	//插入s为新的要结点
 		else if (key < p->data)
 			p->lchild = s;	//插入s为左孩子
