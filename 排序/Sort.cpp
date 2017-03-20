@@ -92,7 +92,7 @@ void InsertSort(int a[], int n)
 void InsertSortA(int a[], int n)
 {
 	int i, j, temp;
-	for (i = 0; i<n; i++)
+	for (i = 1; i<n; i++)
 	{
 		temp = a[i];
 		j = i;
