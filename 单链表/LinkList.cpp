@@ -1,10 +1,31 @@
-/*顺序表示例代码*/
 #include<iostream>
 #include <fstream>
 #include<time.h>
 #include<stdlib.h>
-
+#include<math.h>
+#include <stack>  
+#include <queue> 
+#include <vector>  
+#include <string>  
+#include <random>  
+#include <algorithm>  
+#include <cmath>
+#include <vector>
+#include <string>
+#include <map>
+#include<cctype>
+#include <sstream>  //字符串调用读写
+#include <fstream>  //文件调用读写
 using namespace std;
+
+#define OK 1
+#define ERROR 0
+#define TRUE 1
+#define FALSE 0
+typedef int Status;//函数结果状态代码，如OK等
+typedef int ElemType;
+#define MAXSIZE 100
+const int MaxArray = 100;
 #define OK 1
 #define ERROR 0
 #define TRUE 1
@@ -23,7 +44,7 @@ typedef struct Node
 typedef Node *LinkList;//LinkList是链表头地址或节点的首地址，链接与节点索引都只是一个地址，这个结构很神奇
 
 //1.从链表中获取一个元素
-Status GetElem(LinkList L, int i,ElemType *e)
+Status GetElem(LinkList L, int i, ElemType *e)
 {
 	int j;
 	LinkList p;	//声明一结点
@@ -42,8 +63,11 @@ Status GetElem(LinkList L, int i,ElemType *e)
 //2.单链表的插入
 Status ListInsert(LinkList *L, int i, ElemType e)
 {
+	if (*L == NULL)
+		return 0;
+
 	int j;
-	LinkList p, s;
+	LinkList p;
 	p = *L;
 	j = 1;
 	while (p&&j < i)//寻找第i个结点
@@ -53,9 +77,11 @@ Status ListInsert(LinkList *L, int i, ElemType e)
 	}
 	if (!p || j>i)
 		return ERROR;	//第i个元素不存在
-	s = (LinkList)malloc(sizeof(Node));//生成新结点（C标准函数）
+
+	LinkList s = (LinkList)malloc(sizeof(Node));//生成新结点（C标准函数）
 	s->data = e;
 	s->next = p->next; //将p的后继结点赋值给s的后继
+	
 	p->next = s;	//将s赋值给P的后继
 	return OK;
 }
@@ -73,7 +99,7 @@ Status ListDelete(LinkList &L, int i, ElemType *e)
 	}
 	if (!(p->next) || j>i)
 		return ERROR;
-	q = p->next;			
+	q = p->next;
 	p->next = q->next;		//将q的后继赋值给p的后继
 	*e = q->data;			//将q站点中的数据给e
 	free(q);				//让系统回收此结点，释放内存
@@ -106,35 +132,34 @@ LinkList CreateListTail(int n)
 {
 	LinkList pLinkList, r, p;
 	int i;
-	srand(time(0));        //初始化随机数种子
-	pLinkList = (LinkList)malloc(sizeof(Node));    //为整个线性表
+	pLinkList = new Node;
 	pLinkList->data = 0;                        //为整个
 	pLinkList->next = NULL;    //先建立一个带头的单链表 
 
 	r = pLinkList;
 	for (i = 0; i<n - 1; i++)
 	{
-		p = (Node*)malloc(sizeof(Node));    //生成新结点
-		p->data = rand() % 100 + 1;    //随机生成100以内的数字
+		p = new Node;    //生成新结点
+		p->data = 1;
 		r->next = p;
 		r = p;                //将生成的新结点定义为表尾终端结点 
 	}
 	r->next = NULL;            //表示当前链表结束 
 	return pLinkList;
 }
-//6.手动建立单链表,尾插法 
+//6.手动建立单链表,尾插法,去除了头节点
 LinkList ManCreList()
 {
 	LinkList head, p, s;
-	int x= 1;
-	head = (Node*)malloc(sizeof(Node));    //建立头节点
+	int x = 1;
+	head = new Node;    //建立头节点
 	p = head;
 	cout << "Please input the data or press (CTRL+C):" << endl;
 	while (1)
 	{
 		if (cin >> x)//输入EOF结束，win平台是Ctrl+z
 		{
-			s = (Node*)malloc(sizeof(Node));    //第次新建一个节点
+			s = new Node;    //第次新建一个节点
 			s->data = x;                        //新结点赋值 
 			p->next = s;                        //链表指向新节点 
 			p = s;                             //新节点成链表最后一个元素 
@@ -151,11 +176,10 @@ LinkList ManCreList()
 void PrintList(LinkList head)
 {
 	LinkList p;
-	printf("\nNow,These data are :\n");
 	p = head;
 	while (p != NULL)
 	{
-		cout << p->data<<" ";
+		cout << p->data << " ";
 		p = p->next;
 	}
 	cout << endl;
@@ -166,10 +190,9 @@ void PrintNode(const LinkList pLinkNode)
 {
 	if (pLinkNode)
 	{
-		cout<<pLinkNode->data<<" ";
+		cout << pLinkNode->data << " ";
 		PrintNode(pLinkNode->next);
 	}
-	cout << endl;
 }
 //8.整表删除
 Status ClearList(LinkList &L)
@@ -185,31 +208,35 @@ Status ClearList(LinkList &L)
 	L->next = NULL;	//头结点指针域为空
 	return OK;
 }
-
+bool antiOrder(LinkList plinklist)
+{
+	if (plinklist == NULL)
+		return 0;
+	stack<LinkList> st;
+	LinkList head = plinklist;
+	LinkList p = head->next;	//这里的链表结构假设是有头节点的
+	//LinkList p = head;	//如是没有头节点
+	while (p)
+	{
+		st.push(p);
+		p = p->next;
+	}
+	while (!st.empty())
+	{
+		cout << st.top()->data << " ";
+		st.pop();
+	}
+	return 1;
+}
 // 主函数
 int main()
 {
 	int num = 0;
 	//随机链表生成，头插法
-	LinkList ll = CreateListHead(10); 
-	PrintList(ll);
 	//随机链表生成，尾插法
 	LinkList lt = CreateListTail(10);
-	PrintNode(lt);
-	//获取链表中一个元素
-	if (GetElem(lt, 1, &num))
-		cout << num << endl;
-	else
-		cout << "ERROR" << endl;
-	//插入一个元素
-	if (ListInsert(&ll, 1, 43))
-		PrintList(ll);
-	//删除一个元素
-	if (ListDelete(ll, 5, &num))
-		PrintList(ll);
-	//删除整个链表
-	if (ClearList(ll))
-		cout << "Delete Success." << endl;
-	Print(lt);
+	PrintNode(lt->next);
+	cout << endl;
+	antiOrder(lt);
 	return 0;
 }

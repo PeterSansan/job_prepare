@@ -42,8 +42,18 @@ for(int i=0;i<a;i++)
 {
 	ch[i] = (int *) malloc(sizeof(int)*b);
 }
+//法4；
+	scanf("%d %d",&n,&m);//	注意用全局变量
+	for(i=0;i<n;i++)
+		for(j=0;i<m;j++)
+			scanf("%d",&a[i][j]);
 
-//4.十进制转二进制
+//4.矩阵方向操作
+int next[4][2]={{0,1},//向右走
+			{1,0},		//向下走
+			{0,-1},		//向左走
+			{-1,0}};	//向上走
+//5.十进制转二进制
 string ss(int &numd)
 {
 	string a;
@@ -80,4 +90,18 @@ void movesame(vector<string> &s)
 	auto end_unique = unique(s.begin(), s.end());
 	s.erase(end_unique, s.end());
 }
-
+//7.删除指定字符串
+int main()
+{
+	string str,str1;
+	cin >> str;
+	cin >> str1;
+	auto po = str.find(str1,0);
+	while (po != str.npos)
+	{
+		str.erase(po, str1.size());
+		po = str.find(str1,po+1);
+	}
+	cout << str;
+	return 0;
+}
