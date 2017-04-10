@@ -123,7 +123,7 @@ void insert_sort(int a[], int n)
 void ShellSort(int a[], int n)
 {
 	int i, j, gp, temp;
-	gp = n / 2;
+	//gp = n / 2;
 	//分组进行插入排序，如数据是{3,6,2,9,1,7,8,4,5,0}
 	//第一轮对5组进行插入排序：h = [3,7],[6,8],[2,4],[9,5],[1,0]
 	//第二轮对2组进行插入排序：

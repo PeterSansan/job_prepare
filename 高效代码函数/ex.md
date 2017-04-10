@@ -1,4 +1,5 @@
-//1.顺序容器输出
+### 1.顺序容器输出
+```
 void print(vector<int> v)
 {
 	//	for ( auto beg = v.begin(), end = v.end(); beg != end; ++beg )
@@ -7,7 +8,10 @@ void print(vector<int> v)
 		cout << r << ' ';
 	cout << endl;
 }
-//2.查找字符中的
+```
+### 2.查找字符中的子串的个数
+
+```
 void str_()
 {
 	string str("babccbabcaabcccbabccabcabcabbabcc");
@@ -23,36 +27,54 @@ void str_()
 		cout << "not find!";
 	cout << endl;
 }
-//3.C++二维矩阵的定义
-//法1，vector
+```
+### 3.C++二维矩阵的定义
+
+- 法1，vector
+
+```
 vector<vector<int> > v(n, vector<int>(m));
 /*定义了一个vector容器，元素类型为vector<int>，初始化为包含m个vector<int>对象，
 每个对象都是一个新创立的vector<int>对象的拷贝，而这个新创立的vector<int>对象被初始化为包含n个0。*/
-//法2,c++
+```
+- 法2,c++
+
+```
 int n=10,m=2;     //  
 int **swp;      //动态申请二维数组 n行 m列  
 swp=new int*[n];  
 for(int i=0;i<n;i++)  
 	swp[i]=new int[m];  
-//法3.c
+```
+- 法3.c
+
+```
 int a,b;
 cin>>a>>b;
 int **ch = (int**) malloc(sizeof(int*)*a);
 for(int i=0;i<a;i++)
 {
 	ch[i] = (int *) malloc(sizeof(int)*b);
-//法4；
+```
+- 法4；
+
+```
 	scanf("%d %d",&n,&m);//	注意用全局变量
 	for(i=0;i<n;i++)
 		for(j=0;i<m;j++)
 			scanf("%d",&a[i][j]);
+```
+### 4.矩阵方向操作
 
-//4.矩阵方向操作
+```
 int next[4][2]={{0,1},//向右走
 			{1,0},		//向下走
 			{0,-1},		//向左走
 			{-1,0}};	//向上走
-//5.十进制转二进制
+```
+### 5.十进制转二进制
+
+```
 string ss(int &numd)
 {
 	string a;
@@ -64,7 +86,10 @@ string ss(int &numd)
 	reverse(a.begin(), a.end());
 	return a;
 }
-//5.C++中多维数组的理解
+```
+### 6.C++中多维数组的理解
+
+```
 int ia[3][4] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
 cout << **begin(ia) << endl;		//输出1
 cout << *(*(end(ia)-1)+1) << endl;  //输出的是10，注意end是指到末地址的下一位
@@ -80,8 +105,10 @@ for (auto p = begin(ia); p != end(ia); ++p)
 		cout << *q << ' ';	//输出q所指的整数值
 	cout << endl;
 }
-	
-//6.排序去除重复的单词
+```	
+### ７.排序去除重复的单词
+
+```
 void movesame(vector<string> &s)
 {
 	//按字典序排序words,以便查找重复单词
@@ -89,7 +116,10 @@ void movesame(vector<string> &s)
 	auto end_unique = unique(s.begin(), s.end());
 	s.erase(end_unique, s.end());
 }
-//7.删除指定字符串
+```
+### 8.删除指定字符串
+
+```
 int main()
 {
 	string str,str1;
@@ -104,3 +134,4 @@ int main()
 	cout << str;
 	return 0;
 }
+```
